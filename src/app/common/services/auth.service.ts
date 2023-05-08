@@ -41,6 +41,28 @@ export class AuthService {
       });
   }
 
+  signUp(email: string, password: string) {
+    return this.augularFireAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.sendVerificationMail();
+        this.setUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
+
+  sendVerificationMail() {
+    return this.augularFireAuth.currentUser
+      .then((user: any) => {
+        user.sendEmailVerification();
+      })
+      .then(() => {
+        this.router.navigate(['verify-email-address']);
+      });
+  }
+
   //
   setUserData(obj: any) {}
 }
