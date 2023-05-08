@@ -91,12 +91,15 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.router.navigate(['dashboard']);
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error);
       });
   }
+
+
+  
   //
   setUserData(obj: any) {}
 }
