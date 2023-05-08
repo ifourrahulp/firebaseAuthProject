@@ -55,9 +55,7 @@ export class AuthService {
 
   sendVerificationMail() {
     return this.augularFireAuth.currentUser
-      .then((user: any) => {
-        user.sendEmailVerification();
-      })
+      .then((user: any) => user.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
       });
