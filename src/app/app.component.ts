@@ -6,5 +6,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  constructor(public fbAuth: AngularFireAuth) {}
+  // constructor(public fbAuth: AngularFireAuth) {}
+
+  constructor() {}
 }
