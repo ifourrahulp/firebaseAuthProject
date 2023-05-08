@@ -1,6 +1,6 @@
 <header>
   <div class="container">
-    <a routerLink="/" class="logo">{{ appTitle }}</a>
+    <a routerLink="/" class="logo">{{ 'appTitle' }}</a>
 
     <div *ngIf="fbAuth.user | async as user">
       <nav>
