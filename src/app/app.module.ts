@@ -9,12 +9,13 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppComponent } from './app.component';
 
 var config = {
-  apiKey: 'AIzaSyAAAjTntCh9aLSmKolqFJLep3d6avf9aYI',
-  authDomain: 'mydb2018-fcd4d.firebaseapp.com',
-  databaseURL: 'https://mydb2018-fcd4d.firebaseio.com',
-  projectId: 'mydb2018-fcd4d',
-  storageBucket: 'mydb2018-fcd4d.appspot.com',
-  messagingSenderId: '1002281455405',
+  apiKey: 'AIzaSyC-JJGGUR7VnmvPYuSzj1pvfM1mCtmdjXU',
+  authDomain: 'fir-authproject-f3c1f.firebaseapp.com',
+  projectId: 'fir-authproject-f3c1f',
+  storageBucket: 'fir-authproject-f3c1f.appspot.com',
+  messagingSenderId: '451362323797',
+  appId: '1:451362323797:web:d929f7a8c4df0cdbcd03dc',
+  measurementId: 'G-H6JVMSDEF3',
 };
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
