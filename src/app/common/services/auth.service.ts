@@ -61,6 +61,42 @@ export class AuthService {
       });
   }
 
+  forgotPassword(passwordResetEmail: string) {
+    return this.augularFireAuth
+      .sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
+
+  // Returns true when user is looged in and email is verified
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null && user.emailVerified !== false ? true : false;
+  }
+
+  // Sign in with Google
+  googleAuth() {
+    return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+      this.router.navigate(['dashboard']);
+    });
+  }
+
+  // Auth logic to run auth providers
+  authLogin(provider: any) {
+    return this.augularFireAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.router.navigate(['dashboard']);
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
   //
   setUserData(obj: any) {}
 }
