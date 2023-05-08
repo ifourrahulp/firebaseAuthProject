@@ -8,8 +8,12 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './common/components/nav/nav.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
-var config = {
+const config = {
   apiKey: 'AIzaSyC-JJGGUR7VnmvPYuSzj1pvfM1mCtmdjXU',
   authDomain: 'fir-authproject-f3c1f.firebaseapp.com',
   projectId: 'fir-authproject-f3c1f',
@@ -49,9 +53,12 @@ var config = {
   declarations: [NavComponent, AppComponent],
   imports: [
     BrowserModule,
-    // AngularFireModule.initializeApp(config),
-    // AngularFireAuthModule,
-    // FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    // AngularFireDatabaseModule,
   ],
   exports: [],
   providers: [],

@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { PagesRoutingModule } from './pages-routing.module';
+import { PagesComponent } from './pages.component';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
+  declarations: [PagesComponent],
+  imports: [CommonModule, PagesRoutingModule],
   exports: [],
   providers: [],
 })
