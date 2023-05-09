@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AuthService } from './common/services/auth.service';
 
 const config = {
   apiKey: 'AIzaSyC-JJGGUR7VnmvPYuSzj1pvfM1mCtmdjXU',
@@ -61,7 +62,7 @@ const config = {
     AngularFireDatabaseModule,
   ],
   exports: [],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
