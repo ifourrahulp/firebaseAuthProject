@@ -62,7 +62,7 @@ const config = {
     AngularFireDatabaseModule,
   ],
   exports: [],
-  providers: [AuthService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {
