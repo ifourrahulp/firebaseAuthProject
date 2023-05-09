@@ -2,7 +2,11 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-
+import * as auth from 'firebase/auth';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +15,7 @@ export class AuthService {
 
   constructor(
     private angularFirestore: AngularFirestore,
-    public angularFireAuth: AngularFireAuth,
+    private angularFireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone
   ) {
@@ -42,19 +46,19 @@ export class AuthService {
   }
 
   signUp(email: string, password: string) {
-    return this.augularFireAuth
+    return this.angularFireAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then((result: any) => {
         this.sendVerificationMail();
         this.setUserData(result.user);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         window.alert(error.message);
       });
   }
 
   sendVerificationMail() {
-    return this.augularFireAuth.currentUser
+    return this.angularFireAuth.currentUser
       .then((user: any) => user.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
@@ -62,7 +66,7 @@ export class AuthService {
   }
 
   forgotPassword(passwordResetEmail: string) {
-    return this.augularFireAuth
+    return this.angularFireAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert('Password reset email sent, check your inbox.');
@@ -87,7 +91,7 @@ export class AuthService {
 
   // Auth logic to run auth providers
   authLogin(provider: any) {
-    return this.augularFireAuth
+    return this.angularFireAuth
       .signInWithPopup(provider)
       .then((result) => {
         this.router.navigate(['dashboard']);
@@ -98,8 +102,34 @@ export class AuthService {
       });
   }
 
-
   
   //
-  setUserData(obj: any) {}
+  setUserData(user: any) {
+    const userRef: AngularFireStoreDocument<any> = this.angularFireAuth.doc(
+      `user/${user.id}`
+    );
+
+    const userData: User = {
+      uid = user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoUrl: user.photoUrl,
+      emailVerified: user.emailVerified
+    }
+
+
+    return userRef.set(userData, {
+      merge: true
+    })l
+
+  }
+
+
+  signOut() {
+    this.angularFireAuth.signOut
+    .then(() => {
+        localStorag.removeItem('user');
+        this.router.navigate(['sign-in'])
+    })
+  }
 }
