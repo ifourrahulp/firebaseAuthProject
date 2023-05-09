@@ -1,12 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
+import { User } from '../model/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +22,11 @@ export class AuthService {
     this.angularFireAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user')!);
       } else {
+        localStorage.setItem('user', 'null');
+        JSON.parse(localStorage.getItem('user')!);
       }
     });
   }
@@ -102,34 +106,28 @@ export class AuthService {
       });
   }
 
-  
   //
   setUserData(user: any) {
-    const userRef: AngularFireStoreDocument<any> = this.angularFireAuth.doc(
+    const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(
       `user/${user.id}`
     );
-
     const userData: User = {
-      uid = user.uid,
+      uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoUrl: user.photoUrl,
-      emailVerified: user.emailVerified
-    }
-
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+    };
 
     return userRef.set(userData, {
-      merge: true
-    })l
-
+      merge: true,
+    });
   }
 
-
   signOut() {
-    this.angularFireAuth.signOut
-    .then(() => {
-        localStorag.removeItem('user');
-        this.router.navigate(['sign-in'])
-    })
+    this.angularFireAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['sign-in']);
+    });
   }
 }
